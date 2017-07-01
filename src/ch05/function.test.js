@@ -4,16 +4,20 @@
 
 describe('function', () => {
   it('is an object to which one can add properties', () => {
-    const assert = (expr, message) => {
-      if (!expr) {
-        throw new Error(message);
-      }
+    const assert = (() => {
+      const result = (expr, message) => {
+        if (!expr) {
+          throw new Error(message);
+        }
+        
+        result.count++;
+        
+        return true;
+      };
+      result.count = 0;
       
-      assert.count++;
-      
-      return true;
-    };
-    assert.count = 0;
+      return result;
+    })();
     
     assert(1);
     expect(assert.count).toBe(1);
